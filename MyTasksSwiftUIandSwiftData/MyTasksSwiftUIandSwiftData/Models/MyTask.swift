@@ -1,5 +1,5 @@
 //
-//  Task.swift
+//  MyTask.swift
 //  MyTasksSwiftUIandSwiftData
 //
 //  Created by Anthony H on 5/9/24.
@@ -8,7 +8,9 @@
 import Foundation
 import SwiftData
 
-class Task {
+@Model
+final class MyTask: Identifiable {
+    @Attribute(.unique) var id: String = UUID().uuidString
     var name: String = ""
     var priority: Priority.RawValue = Priority.low.rawValue
     var dueDate: Date = Date()

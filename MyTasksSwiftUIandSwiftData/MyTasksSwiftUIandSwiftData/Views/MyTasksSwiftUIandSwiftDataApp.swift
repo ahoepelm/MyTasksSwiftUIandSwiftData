@@ -6,12 +6,15 @@
 //
 
 import SwiftUI
+import SwiftData
 
 @main
 struct MyTasksSwiftUIandSwiftDataApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            MyTasksView()
         }
+        // Adding the container for storing the data
+        .modelContainer(for: [MyTask.self])
     }
 }

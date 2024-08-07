@@ -6,19 +6,19 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct TaskCountView: View {
-    var taskCount: Int = 3
-    
+    @Query private var tasks: [MyTask]
+
     var body: some View {
         VStack {
-            Text("\(taskCount)")
+            Text("\(tasks.count)")
                 .font(.system(size:60))
                 .fontWeight(.bold)
-                //.padding(.horizontal)
                 .minimumScaleFactor(0.5)
                 .foregroundColor(.blue)
-            Text(taskCount > 1 ? "Tasks" : "Task")
+            Text(tasks.count > 1 ? "Tasks" : "MyTask")
         }
     }
 }
