@@ -14,10 +14,30 @@ struct TaskListView: View {
     let myTasks: [MyTask]
     
     var body: some View {
-        var sortedTasks = myTasks
-        
-        List(sortedTasks) { myTask in
-            Text(myTask.name)
+        List {
+            ForEach(myTasks, id: \.id) { task in
+                NavigationLink(value: task) {
+                    VStack(alignment: .leading) {
+                        Text(task.name)
+                            .font(.title2)
+                    }
+                }
+            }.onDelete(perform: deleteTask)
+        }
+    }
+    
+    private func deleteTask(indexChosen: IndexSet) {
+        indexChosen.forEach { index in
+            let task = myTasks[index]
+            context.delete(task)
+            
+            do {
+                // Try to save the deletion in storage
+                try context.save()
+            } catch {
+                // TODO: Create proper notification
+                print(error.localizedDescription)
+            }
         }
     }
 }
