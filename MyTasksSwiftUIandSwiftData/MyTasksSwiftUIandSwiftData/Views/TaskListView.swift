@@ -11,8 +11,24 @@ import SwiftData
 struct TaskListView: View {
     // Get the context from the environment
     @Environment(\.modelContext) private var context
-    let myTasks: [MyTask]
+    // Fetches the data from storage
+    @Query private var myTasks: [MyTask]
     
+    init(sortOrder: Bool, filterString: String) {
+        let sortDescriptors: [SortDescriptor<MyTask>] = switch sortOrder {
+        case true:
+            [SortDescriptor(\MyTask.name)]
+        case false:
+            [SortDescriptor(\MyTask.name, order: .reverse)]
+        }
+
+        let predicate = #Predicate<MyTask> { task in
+            task.name.localizedStandardContains(filterString)
+            || filterString.isEmpty
+        }
+        _myTasks = Query(filter: predicate, sort: sortDescriptors)
+    }
+
     var body: some View {
         List {
             ForEach(myTasks, id: \.id) { task in
@@ -42,6 +58,6 @@ struct TaskListView: View {
     }
 }
 
-//#Preview {
-//    TaskListView()
-//}
+#Preview {
+    TaskListView(sortOrder: true, filterString: "")
+}

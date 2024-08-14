@@ -12,8 +12,6 @@ struct MyTasksView: View {
     @State private var sortOrder: Bool = true
     @State private var searchText: String = ""
     @State private var addingTask: Bool = false
-    // Fetches the data from storage
-    @Query private var tasks: [MyTask]
     
     var body: some View {
         HStack {
@@ -26,7 +24,7 @@ struct MyTasksView: View {
         .padding()
         
         NavigationStack {
-            TaskListView(myTasks: tasks)
+            TaskListView(sortOrder: sortOrder, filterString: searchText)
                 .navigationTitle("Tasks")
                 .searchable(text: $searchText)
                 .toolbar {
