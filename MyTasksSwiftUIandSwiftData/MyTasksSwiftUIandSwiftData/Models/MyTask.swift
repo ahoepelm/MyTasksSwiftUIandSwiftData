@@ -25,12 +25,14 @@ final class MyTask: Identifiable {
 }
 
 enum Priority: String, Codable, Identifiable, CaseIterable {
-    case low, medium, high
+    case none, low, medium, high
     var id: Self {
         self
     }
     var descr: LocalizedStringResource {
         switch self {
+        case .none:
+            "None"
         case .low:
             "Low"
         case .medium:

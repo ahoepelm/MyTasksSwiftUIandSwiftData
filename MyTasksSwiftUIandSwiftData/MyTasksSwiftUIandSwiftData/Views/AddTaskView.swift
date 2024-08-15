@@ -7,24 +7,40 @@
 
 import SwiftUI
 
-
 struct AddTaskView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.modelContext) private var context
     @State private var name = ""
-    @State private var priority: Priority = .low
+    @State private var priority: Priority = .none
     
     var body: some View {
         NavigationStack {
-            Form {
-                TextField("Task Name", text: $name)
-                
-            }
-            .navigationTitle("Task")
-            .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button("Cancel") {
-                        dismiss()
+            VStack {
+                Form {
+                    TextField("Task Name", text: $name)
+                    HStack {
+                        Button("Low") {
+                            priority = .low
+                        }
+                        .background(priority == .low ? .green : .gray, in: Capsule())
+                        Button("Medium") {
+                            priority = .medium
+                        }
+                        .background(priority == .medium ? .orange : .gray, in: Capsule())
+                        Button("High") {
+                            priority = .high
+                        }
+                        .background(priority == .high ? .red : .gray, in: Capsule())
+                    }
+                    .buttonStyle(OvalButton())
+                    .frame(maxWidth: .infinity, alignment: .center)
+                }                
+                .navigationTitle("Task")
+                .toolbar {
+                    ToolbarItem(placement: .topBarTrailing) {
+                        Button("Cancel") {
+                            dismiss()
+                        }
                     }
                 }
             }
