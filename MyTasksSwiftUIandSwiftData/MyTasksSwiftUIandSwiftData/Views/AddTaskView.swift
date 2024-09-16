@@ -12,12 +12,27 @@ struct AddTaskView: View {
     @Environment(\.modelContext) private var context
     @State private var name = ""
     @State private var priority: Priority = .none
+    @State private var date = Date()
+    @State private var sheetShowing: Bool = false
+    private let dateViewModel = GetDateViewModel()
     
     var body: some View {
         NavigationStack {
             VStack {
                 Form {
                     TextField("Task Name", text: $name)
+                    HStack {
+                        Text(dateViewModel.convertDate(date: date))
+                        
+                        Button("", systemImage: "calendar") {
+                            sheetShowing.toggle()
+                        }
+                        .font(.title3)
+                    }
+                    if sheetShowing {
+                        DatePicker("", selection: $date, in: Date()...)
+                            .datePickerStyle(.graphical)
+                    }                                   
                     HStack {
                         Button("Low") {
                             priority = .low
@@ -51,6 +66,7 @@ struct AddTaskView: View {
             do {
                 try context.save()
             } catch {
+                // TODO: create proper alert
                 print(error.localizedDescription)
             }
             dismiss()

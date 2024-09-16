@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CurrDateView: View {
-    private let dateViewModel = CurrDateViewModel()
+    private let dateViewModel = GetDateViewModel()
     
     var body: some View {
         VStack(alignment: .leading) {

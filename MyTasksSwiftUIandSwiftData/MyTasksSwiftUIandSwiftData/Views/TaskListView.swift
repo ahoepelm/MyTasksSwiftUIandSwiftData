@@ -13,6 +13,7 @@ struct TaskListView: View {
     @Environment(\.modelContext) private var context
     // Fetches the data from storage
     @Query private var myTasks: [MyTask]
+    private let dateViewModel = GetDateViewModel()
     
     init(sortOrder: Bool, filterString: String) {
         let sortDescriptors: [SortDescriptor<MyTask>] = switch sortOrder {
@@ -30,15 +31,21 @@ struct TaskListView: View {
     }
 
     var body: some View {
-        List {
-            ForEach(myTasks, id: \.id) { task in
-                NavigationLink(value: task) {
-                    VStack(alignment: .leading) {
-                        Text(task.name)
-                            .font(.title2)
+        NavigationStack {
+            List {
+                ForEach(myTasks, id: \.id) { task in
+                    NavigationLink(value: task) {
+                        VStack(alignment: .leading) {
+                            Text(task.name)
+                                .font(.title3)
+                            Text(dateViewModel.convertDate(date: task.dueDate))
+                                .font(.subheadline)
+                                .foregroundColor(.gray)
+                        }
                     }
-                }
-            }.onDelete(perform: deleteTask)
+                }.onDelete(perform: deleteTask)
+            }
+            .navigationDestination(for: MyTask.self, destination: TaskDetailView.init)
         }
     }
     

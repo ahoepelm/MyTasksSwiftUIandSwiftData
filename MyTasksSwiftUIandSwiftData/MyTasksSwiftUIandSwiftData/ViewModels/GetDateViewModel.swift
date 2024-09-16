@@ -1,5 +1,5 @@
 //
-//  CurrDateViewModel.swift
+//  GetDateViewModel.swift
 //  MyTasksSwiftUIandSwiftData
 //
 //  Created by Anthony H on 5/9/24.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct CurrDateViewModel {
+struct GetDateViewModel {
     private let today = Date()
     private let dateFormatter = DateFormatter()
     
@@ -19,7 +19,6 @@ struct CurrDateViewModel {
         currDay = dateFormatter.string(from: today)
         
         return currDay
-        
     }
     
     func getMonth() -> String {
@@ -44,6 +43,13 @@ struct CurrDateViewModel {
         currYear = dateFormatter.string(from: today)
         
         return currYear
+    }
+    
+    func convertDate(date: Date) -> String {
+        var convertedDate: String
+        dateFormatter.dateFormat = "MMM d, h:mm a"
+        convertedDate = dateFormatter.string(from: date)
+        return convertedDate
     }
 
 }

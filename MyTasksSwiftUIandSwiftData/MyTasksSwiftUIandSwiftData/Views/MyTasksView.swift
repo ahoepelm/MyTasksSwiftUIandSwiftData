@@ -29,11 +29,11 @@ struct MyTasksView: View {
                 .searchable(text: $searchText)
                 .toolbar {
                     Button("sort", systemImage: "arrow.up.arrow.down") {
-                        sortOrder.toggle()}
-
+                        sortOrder.toggle()
+                    }
                     Button {
                         addingTask = true
-                    }label: {
+                    } label: {
                         Image(systemName: "plus")
                             .imageScale(.large)
                     }

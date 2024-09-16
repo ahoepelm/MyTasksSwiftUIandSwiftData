@@ -12,9 +12,10 @@
 		80141FF92BD983480001606B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 80141FF82BD983480001606B /* Assets.xcassets */; };
 		80141FFC2BD983480001606B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 80141FFB2BD983480001606B /* Preview Assets.xcassets */; };
 		801752D42BED58A9000A5466 /* CurrDateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 801752D32BED58A9000A5466 /* CurrDateView.swift */; };
-		801752D92BED5B41000A5466 /* CurrDateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 801752D82BED5B41000A5466 /* CurrDateViewModel.swift */; };
+		801752D92BED5B41000A5466 /* GetDateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 801752D82BED5B41000A5466 /* GetDateViewModel.swift */; };
 		801752DC2BED5E03000A5466 /* ViewModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 801752DB2BED5E03000A5466 /* ViewModifiers.swift */; };
 		801752DE2BED60F1000A5466 /* TaskCountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 801752DD2BED60F1000A5466 /* TaskCountView.swift */; };
+		80CF090A2C98E15500F9D0D6 /* TaskDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CF09092C98E15500F9D0D6 /* TaskDetailView.swift */; };
 		80E27A4C2BED722B00617C6C /* MyTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E27A4B2BED722B00617C6C /* MyTask.swift */; };
 		80E27A4E2BEE878200617C6C /* TaskListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E27A4D2BEE878200617C6C /* TaskListView.swift */; };
 		80E27A502BEE903200617C6C /* AddTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80E27A4F2BEE903200617C6C /* AddTaskView.swift */; };
@@ -27,9 +28,10 @@
 		80141FF82BD983480001606B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		80141FFB2BD983480001606B /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		801752D32BED58A9000A5466 /* CurrDateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrDateView.swift; sourceTree = "<group>"; };
-		801752D82BED5B41000A5466 /* CurrDateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrDateViewModel.swift; sourceTree = "<group>"; };
+		801752D82BED5B41000A5466 /* GetDateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetDateViewModel.swift; sourceTree = "<group>"; };
 		801752DB2BED5E03000A5466 /* ViewModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModifiers.swift; sourceTree = "<group>"; };
 		801752DD2BED60F1000A5466 /* TaskCountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCountView.swift; sourceTree = "<group>"; };
+		80CF09092C98E15500F9D0D6 /* TaskDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailView.swift; sourceTree = "<group>"; };
 		80E27A4B2BED722B00617C6C /* MyTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTask.swift; sourceTree = "<group>"; };
 		80E27A4D2BEE878200617C6C /* TaskListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListView.swift; sourceTree = "<group>"; };
 		80E27A4F2BEE903200617C6C /* AddTaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskView.swift; sourceTree = "<group>"; };
@@ -100,6 +102,7 @@
 				801752DD2BED60F1000A5466 /* TaskCountView.swift */,
 				80E27A4D2BEE878200617C6C /* TaskListView.swift */,
 				80E27A4F2BEE903200617C6C /* AddTaskView.swift */,
+				80CF09092C98E15500F9D0D6 /* TaskDetailView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -107,7 +110,7 @@
 		801752D52BED591D000A5466 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				801752D82BED5B41000A5466 /* CurrDateViewModel.swift */,
+				801752D82BED5B41000A5466 /* GetDateViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -191,9 +194,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				801752DC2BED5E03000A5466 /* ViewModifiers.swift in Sources */,
-				801752D92BED5B41000A5466 /* CurrDateViewModel.swift in Sources */,
+				801752D92BED5B41000A5466 /* GetDateViewModel.swift in Sources */,
 				80141FF72BD983400001606B /* MyTasksView.swift in Sources */,
 				80E27A502BEE903200617C6C /* AddTaskView.swift in Sources */,
+				80CF090A2C98E15500F9D0D6 /* TaskDetailView.swift in Sources */,
 				801752D42BED58A9000A5466 /* CurrDateView.swift in Sources */,
 				80141FF52BD983400001606B /* MyTasksSwiftUIandSwiftDataApp.swift in Sources */,
 				80E27A4C2BED722B00617C6C /* MyTask.swift in Sources */,
