@@ -11,7 +11,8 @@ struct AddTaskView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.modelContext) private var context
     @State private var name = ""
-    @State private var priority: Priority = .none
+    @State private var taskPriority: Priority = .none
+    @State private var priorityString = ""
     @State private var date = Date()
     @State private var sheetShowing: Bool = false
     private let dateViewModel = GetDateViewModel()
@@ -30,22 +31,26 @@ struct AddTaskView: View {
                         .font(.title3)
                     }
                     if sheetShowing {
-                        DatePicker("", selection: $date, in: Date()...)
-                            .datePickerStyle(.graphical)
-                    }                                   
+                        DatePicker("", selection: $date, in: Date()..., displayedComponents: [.date, .hourAndMinute])
+                            //.datePickerStyle(.graphical)
+                            .datePickerStyle(.compact)
+                    }
                     HStack {
                         Button("Low") {
-                            priority = .low
+                            taskPriority = .low
+                            priorityString = "low"
                         }
-                        .background(priority == .low ? .green : .gray, in: Capsule())
+                        .background(taskPriority == .low ? .green : .gray, in: Capsule())
                         Button("Medium") {
-                            priority = .medium
+                            taskPriority = .medium
+                            priorityString = "medium"
                         }
-                        .background(priority == .medium ? .orange : .gray, in: Capsule())
+                        .background(taskPriority == .medium ? .orange : .gray, in: Capsule())
                         Button("High") {
-                            priority = .high
+                            taskPriority = .high
+                            priorityString = "high"
                         }
-                        .background(priority == .high ? .red : .gray, in: Capsule())
+                        .background(taskPriority == .high ? .red : .gray, in: Capsule())
                     }
                     .buttonStyle(OvalButton())
                     .frame(maxWidth: .infinity, alignment: .center)
@@ -61,7 +66,7 @@ struct AddTaskView: View {
             }
         }
         Button("Save") {
-            let task = MyTask(name: name, priority: "Low", dueDate: .now, isDone: false)
+            let task = MyTask(name: name, priority: priorityString, dueDate: date, isDone: false)
             context.insert(task)
             do {
                 try context.save()

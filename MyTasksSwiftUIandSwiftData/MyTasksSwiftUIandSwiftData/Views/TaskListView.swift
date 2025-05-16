@@ -31,22 +31,14 @@ struct TaskListView: View {
     }
 
     var body: some View {
-        NavigationStack {
             List {
                 ForEach(myTasks, id: \.id) { task in
                     NavigationLink(value: task) {
-                        VStack(alignment: .leading) {
-                            Text(task.name)
-                                .font(.title3)
-                            Text(dateViewModel.convertDate(date: task.dueDate))
-                                .font(.subheadline)
-                                .foregroundColor(.gray)
-                        }
+                        TaskRowView(task: task)
                     }
                 }.onDelete(perform: deleteTask)
             }
             .navigationDestination(for: MyTask.self, destination: TaskDetailView.init)
-        }
     }
     
     private func deleteTask(indexChosen: IndexSet) {
