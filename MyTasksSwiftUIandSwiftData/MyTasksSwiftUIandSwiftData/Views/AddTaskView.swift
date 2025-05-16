@@ -32,7 +32,6 @@ struct AddTaskView: View {
                     }
                     if sheetShowing {
                         DatePicker("", selection: $date, in: Date()..., displayedComponents: [.date, .hourAndMinute])
-                            //.datePickerStyle(.graphical)
                             .datePickerStyle(.compact)
                     }
                     HStack {

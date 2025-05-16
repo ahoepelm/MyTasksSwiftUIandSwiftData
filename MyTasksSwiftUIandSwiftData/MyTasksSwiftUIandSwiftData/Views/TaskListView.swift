@@ -31,6 +31,9 @@ struct TaskListView: View {
     }
 
     var body: some View {
+        if myTasks.isEmpty {
+            ContentUnavailableView.search
+        } else {
             List {
                 ForEach(myTasks, id: \.id) { task in
                     NavigationLink(value: task) {
@@ -39,6 +42,7 @@ struct TaskListView: View {
                 }.onDelete(perform: deleteTask)
             }
             .navigationDestination(for: MyTask.self, destination: TaskDetailView.init)
+        }
     }
     
     private func deleteTask(indexChosen: IndexSet) {

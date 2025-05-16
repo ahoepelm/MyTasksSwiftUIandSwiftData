@@ -16,6 +16,7 @@ struct TaskRowView: View {
         VStack(alignment: .leading) {
             Text(task.name)
                 .font(.title3)
+                .foregroundColor(task.priority == "low" ?  Color.green : task.priority == "medium" ? Color.orange : task.priority == "high" ? Color.gray : Color.red)
             Text(dateViewModel.convertDate(date: task.dueDate))
                 .font(.subheadline)
                 .foregroundColor(.gray)
