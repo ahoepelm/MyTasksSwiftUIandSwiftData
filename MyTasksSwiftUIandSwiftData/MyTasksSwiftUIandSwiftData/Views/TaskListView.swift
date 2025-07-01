@@ -13,7 +13,7 @@ struct TaskListView: View {
     @Environment(\.modelContext) private var context
     // Fetches the data from storage
     @Query private var myTasks: [MyTask]
-    private let dateViewModel = GetDateViewModel()
+    //private let dateViewModel = GetDateViewModel()
     
     init(sortOrder: Bool, filterString: String) {
         let sortDescriptors: [SortDescriptor<MyTask>] = switch sortOrder {
@@ -37,7 +37,7 @@ struct TaskListView: View {
             List {
                 ForEach(myTasks, id: \.id) { task in
                     NavigationLink(value: task) {
-                        TaskRowView(task: task)
+                        TaskRowView(myTask: task)
                     }
                 }.onDelete(perform: deleteTask)
             }

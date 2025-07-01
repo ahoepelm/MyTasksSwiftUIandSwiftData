@@ -8,16 +8,25 @@
 import SwiftUI
 
 struct TaskRowView: View {
+    private let myTasksViewModel = MyTasksViewModel()
     private let dateViewModel = GetDateViewModel()
     
-    let task: MyTask
+    let myTask: MyTask
     
-    var body: some View {        
+    var body: some View {
         VStack(alignment: .leading) {
-            Text(task.name)
-                .font(.title3)
-                .foregroundColor(task.priority == "low" ?  Color.green : task.priority == "medium" ? Color.orange : task.priority == "high" ? Color.gray : Color.red)
-            Text(dateViewModel.convertDate(date: task.dueDate))
+            HStack {
+                Button("", systemImage: myTasksViewModel.taskCompletedButtonPressed ? "circle.fill" : "circle") {
+                    print("Complete button was tapped")
+                    myTasksViewModel.toggleTaskCompletedButtonPressed()
+                }
+                .buttonStyle(PlainButtonStyle())
+                
+                Text(myTask.name)
+                    .font(.title3)
+                    .foregroundColor(myTask.priority == "low" ?  Color.green : myTask.priority == "medium" ? Color.orange : myTask.priority == "high" ? Color.gray : Color.red)
+            }
+            Text(dateViewModel.convertDate(date: myTask.dueDate))
                 .font(.subheadline)
                 .foregroundColor(.gray)
         }
