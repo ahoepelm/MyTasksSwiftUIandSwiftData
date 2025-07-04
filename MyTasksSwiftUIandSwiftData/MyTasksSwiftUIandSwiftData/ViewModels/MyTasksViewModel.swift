@@ -5,12 +5,16 @@
 //  Created by Anthony H on 7/1/25.
 //
 
-import SwiftUI
-import Observation
+import SwiftData
 
 @Observable
 class MyTasksViewModel {
     var taskCompletedButtonPressed: Bool = false
+    private var modelContext: ModelContext
+    
+    init(modelContext: ModelContext) {
+        self.modelContext = modelContext
+    }
     
     public func toggleTaskCompletedButtonPressed() {
         self.taskCompletedButtonPressed.toggle()

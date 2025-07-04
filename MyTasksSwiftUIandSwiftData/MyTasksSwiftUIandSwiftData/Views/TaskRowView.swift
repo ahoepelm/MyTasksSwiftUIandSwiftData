@@ -8,27 +8,35 @@
 import SwiftUI
 
 struct TaskRowView: View {
-    private let myTasksViewModel = MyTasksViewModel()
-    private let dateViewModel = GetDateViewModel()
-    
+    @Environment(\.modelContext) var context
+    @State var myTasksViewModel: MyTasksViewModel? = nil
+
     let myTask: MyTask
-    
+    private let dateViewModel = GetDateViewModel()
+
     var body: some View {
         VStack(alignment: .leading) {
-            HStack {
-                Button("", systemImage: myTasksViewModel.taskCompletedButtonPressed ? "circle.fill" : "circle") {
-                    print("Complete button was tapped")
-                    myTasksViewModel.toggleTaskCompletedButtonPressed()
+            if let myTasksViewModel = myTasksViewModel {
+                HStack {
+                    Button("", systemImage: myTasksViewModel.taskCompletedButtonPressed ? "circle.fill" : "circle") {
+                        print("Complete button was tapped")
+                        myTasksViewModel.toggleTaskCompletedButtonPressed()
+                    }
+                    .buttonStyle(PlainButtonStyle())
+                    
+                    Text(myTask.name)
+                        .font(.title3)
+                        .foregroundColor(myTask.priority == "low" ?  Color.green : myTask.priority == "medium" ? Color.orange : myTask.priority == "high" ? Color.gray : Color.red)
                 }
-                .buttonStyle(PlainButtonStyle())
-                
-                Text(myTask.name)
-                    .font(.title3)
-                    .foregroundColor(myTask.priority == "low" ?  Color.green : myTask.priority == "medium" ? Color.orange : myTask.priority == "high" ? Color.gray : Color.red)
             }
             Text(dateViewModel.convertDate(date: myTask.dueDate))
                 .font(.subheadline)
                 .foregroundColor(.gray)
+        }
+        .onAppear {
+            if myTasksViewModel == nil {
+                myTasksViewModel = MyTasksViewModel(modelContext: context)
+            }
         }
     }
 }
