@@ -64,15 +64,12 @@ struct AddTaskView: View {
                 }
             }
         }
+        
         Button("Save") {
+            let myTasksViewModel = MyTasksViewModel(modelContext: context)
             let task = MyTask(name: name, priority: priorityString, dueDate: date, isDone: false)
-            context.insert(task)
-            do {
-                try context.save()
-            } catch {
-                // TODO: create proper alert
-                print(error.localizedDescription)
-            }
+
+            myTasksViewModel.insertTask(task: task)
             dismiss()
         }.disabled(name.trimmingCharacters(in: .whitespaces).isEmpty)
     }

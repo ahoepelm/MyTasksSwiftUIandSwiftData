@@ -20,15 +20,32 @@ class MyTasksViewModel {
         self.taskCompletedButtonPressed.toggle()
         self.markTaskAsComplete()
     }
+    
+    public func insertTask(task: MyTask) {
+        modelContext.insert(task)
+        saveTask(modelContext: modelContext)
+    }
+    
+    public func deletTask(task: MyTask) {
+        modelContext.delete(task)
+        saveTask(modelContext: modelContext)
+    }
+    
     private func markTaskAsComplete() {
         if self.taskCompletedButtonPressed {
             print("Task is now complete")
         } else {
             print("Task is incomplete")
         }
-        saveTask()
+        saveTask(modelContext: modelContext)
     }
-    private func saveTask() {
-        print("Task is now saved")
+    
+    private func saveTask(modelContext: ModelContext) {
+        do {
+            try modelContext.save()
+        } catch {
+            // TODO: create proper alert
+            print(error.localizedDescription)
+        }
     }
 }

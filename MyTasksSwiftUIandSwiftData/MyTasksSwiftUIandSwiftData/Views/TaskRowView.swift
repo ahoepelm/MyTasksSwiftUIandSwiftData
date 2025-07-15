@@ -19,14 +19,13 @@ struct TaskRowView: View {
             if let myTasksViewModel = myTasksViewModel {
                 HStack {
                     Button("", systemImage: myTasksViewModel.taskCompletedButtonPressed ? "circle.fill" : "circle") {
-                        print("Complete button was tapped")
                         myTasksViewModel.toggleTaskCompletedButtonPressed()
                     }
                     .buttonStyle(PlainButtonStyle())
                     
                     Text(myTask.name)
                         .font(.title3)
-                        .foregroundColor(myTask.priority == "low" ?  Color.green : myTask.priority == "medium" ? Color.orange : myTask.priority == "high" ? Color.gray : Color.red)
+                        .foregroundColor(myTask.priority == "low" ?  Color.green : myTask.priority == "medium" ? Color.orange : myTask.priority == "high" ? Color.red : Color.gray)
                 }
             }
             Text(dateViewModel.convertDate(date: myTask.dueDate))

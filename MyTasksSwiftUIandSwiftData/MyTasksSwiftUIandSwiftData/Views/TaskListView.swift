@@ -48,15 +48,8 @@ struct TaskListView: View {
     private func deleteTask(indexChosen: IndexSet) {
         indexChosen.forEach { index in
             let task = myTasks[index]
-            context.delete(task)
-            
-            do {
-                // Try to save the deletion in storage
-                try context.save()
-            } catch {
-                // TODO: Create proper notification
-                print(error.localizedDescription)
-            }
+            let myTasksViewModel = MyTasksViewModel(modelContext: context)
+            myTasksViewModel.deletTask(task: task)
         }
     }
 }
