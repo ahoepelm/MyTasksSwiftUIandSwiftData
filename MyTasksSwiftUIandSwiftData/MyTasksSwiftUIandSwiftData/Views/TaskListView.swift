@@ -13,7 +13,6 @@ struct TaskListView: View {
     @Environment(\.modelContext) private var context
     // Fetches the data from storage
     @Query private var myTasks: [MyTask]
-    //private let dateViewModel = GetDateViewModel()
     
     init(sortOrder: Bool, filterString: String) {
         let sortDescriptors: [SortDescriptor<MyTask>] = switch sortOrder {
@@ -39,6 +38,9 @@ struct TaskListView: View {
                     NavigationLink(value: task) {
                         TaskRowView(myTask: task)
                     }
+                    .alignmentGuide(.listRowSeparatorLeading) { d in
+                                d[.leading]
+                            }
                 }.onDelete(perform: deleteTask)
             }
             .navigationDestination(for: MyTask.self, destination: TaskDetailView.init)

@@ -23,25 +23,55 @@ struct MyTasksView: View {
         }
         .padding()
         
-        NavigationStack {
-            TaskListView(sortOrder: sortOrder, filterString: searchText)
-                .navigationTitle("Tasks")
-                .searchable(text: $searchText)
-                .toolbar {
-                    Button("sort", systemImage: "arrow.up.arrow.down") {
-                        sortOrder.toggle()
-                    }
-                    Button {
-                        addingTask = true
-                    } label: {
-                        Image(systemName: "plus")
-                            .imageScale(.large)
-                    }
+        TabView {
+            // Demonstrating new iOS 18 tab option instead of .tabItem modifier
+            Tab("Pending", systemImage: "square") {
+                NavigationStack {
+                    TaskListView(sortOrder: sortOrder, filterString: searchText)
+                        .navigationTitle("Tasks")
+                        .searchable(text: $searchText)
+                        .toolbar {
+                            Button("sort", systemImage: "arrow.up.arrow.down") {
+                                sortOrder.toggle()
+                            }
+                            Button {
+                                addingTask = true
+                            } label: {
+                                Image(systemName: "plus")
+                                    .imageScale(.large)
+                            }
+                        }
+                        .sheet(isPresented: $addingTask) {
+                            AddTaskView()
+                                .presentationDetents([.medium])
+                        }
                 }
-                .sheet(isPresented: $addingTask) {
-                    AddTaskView()
-                        .presentationDetents([.medium])
+                
+            }
+            
+            Tab("Completed", systemImage: "checkmark.square") {
+                NavigationStack {
+                    TaskListView(sortOrder: sortOrder, filterString: searchText)
+                        .navigationTitle("Tasks")
+                        .searchable(text: $searchText)
+                        .toolbar {
+                            Button("sort", systemImage: "arrow.up.arrow.down") {
+                                sortOrder.toggle()
+                            }
+                            Button {
+                                addingTask = true
+                            } label: {
+                                Image(systemName: "plus")
+                                    .imageScale(.large)
+                            }
+                        }
+                        .sheet(isPresented: $addingTask) {
+                            AddTaskView()
+                                .presentationDetents([.medium])
+                        }
                 }
+                
+            }
         }
     }
 }

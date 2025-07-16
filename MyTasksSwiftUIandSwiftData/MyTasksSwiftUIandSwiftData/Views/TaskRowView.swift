@@ -18,21 +18,24 @@ struct TaskRowView: View {
         VStack(alignment: .leading) {
             if let myTasksViewModel = myTasksViewModel {
                 HStack {
-                    Button("", systemImage: myTasksViewModel.taskCompletedButtonPressed ? "circle.fill" : "circle") {
+                    Button("", systemImage: myTasksViewModel.taskCompletedButtonPressed ? "checkmark.square" : "square") {
                         myTasksViewModel.toggleTaskCompletedButtonPressed()
                     }
                     .buttonStyle(PlainButtonStyle())
                     
-                    Text(myTask.name)
-                        .font(.title3)
-                        .foregroundColor(myTask.priority == "low" ?  Color.green : myTask.priority == "medium" ? Color.orange : myTask.priority == "high" ? Color.red : Color.gray)
+                    VStack(alignment: .leading) {
+                        Text(myTask.name)
+                            .font(.title3)
+                            .foregroundColor(myTask.priority == "low" ?  Color.green : myTask.priority == "medium" ? Color.orange : myTask.priority == "high" ? Color.red : Color.gray)
+                        
+                        Text(dateViewModel.convertDate(date: myTask.dueDate))
+                            .font(.subheadline)
+                            .foregroundColor(.gray)
+                    }
                 }
             }
-            Text(dateViewModel.convertDate(date: myTask.dueDate))
-                .font(.subheadline)
-                .foregroundColor(.gray)
         }
-        .onAppear {
+        .onAppear { // this is not working without the upper VStack
             if myTasksViewModel == nil {
                 myTasksViewModel = MyTasksViewModel(modelContext: context)
             }
