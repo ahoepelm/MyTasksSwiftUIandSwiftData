@@ -14,7 +14,7 @@ struct TaskListView: View {
     // Fetches the data from storage
     @Query private var myTasks: [MyTask]
     
-    init(sortOrder: Bool, filterString: String) {
+    init(sortOrder: Bool, filterString: String, completed: Bool = false) {
         let sortDescriptors: [SortDescriptor<MyTask>] = switch sortOrder {
         case true:
             [SortDescriptor(\MyTask.name)]
@@ -24,7 +24,7 @@ struct TaskListView: View {
 
         let predicate = #Predicate<MyTask> { task in
             task.name.localizedStandardContains(filterString)
-            || filterString.isEmpty
+            || filterString.isEmpty && task.isDone == completed
         }
         _myTasks = Query(filter: predicate, sort: sortDescriptors)
     }

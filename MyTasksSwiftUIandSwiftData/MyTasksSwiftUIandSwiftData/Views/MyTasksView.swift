@@ -27,7 +27,7 @@ struct MyTasksView: View {
             // Demonstrating new iOS 18 tab option instead of .tabItem modifier
             Tab("Pending", systemImage: "square") {
                 NavigationStack {
-                    TaskListView(sortOrder: sortOrder, filterString: searchText)
+                    TaskListView(sortOrder: sortOrder, filterString: searchText, completed: false)
                         .navigationTitle("Tasks")
                         .searchable(text: $searchText)
                         .toolbar {
@@ -51,7 +51,7 @@ struct MyTasksView: View {
             
             Tab("Completed", systemImage: "checkmark.square") {
                 NavigationStack {
-                    TaskListView(sortOrder: sortOrder, filterString: searchText)
+                    TaskListView(sortOrder: sortOrder, filterString: searchText, completed: true)
                         .navigationTitle("Tasks")
                         .searchable(text: $searchText)
                         .toolbar {
