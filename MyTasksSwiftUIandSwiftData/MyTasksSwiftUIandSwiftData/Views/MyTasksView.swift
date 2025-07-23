@@ -12,6 +12,7 @@ struct MyTasksView: View {
     @State private var sortOrder: Bool = true
     @State private var searchText: String = ""
     @State private var addingTask: Bool = false
+    @State private var predicate: Predicate<MyTask> = .false
     
     var body: some View {
         HStack {
@@ -27,7 +28,7 @@ struct MyTasksView: View {
             // Demonstrating new iOS 18 tab option instead of .tabItem modifier
             Tab("Pending", systemImage: "square") {
                 NavigationStack {
-                    TaskListView(sortOrder: sortOrder, filterString: searchText, completed: false)
+                    TaskListView(sortOrder: sortOrder, filterString: searchText, predicate: predicate)
                         .navigationTitle("Tasks")
                         .searchable(text: $searchText)
                         .toolbar {
@@ -46,12 +47,16 @@ struct MyTasksView: View {
                                 .presentationDetents([.medium])
                         }
                 }
-                
+                .onAppear {
+                    predicate = #Predicate<MyTask> { $0.isDone == false && ($0.name.localizedStandardContains(searchText) || searchText.isEmpty)
+                    }
+                }
             }
-            
+
+
             Tab("Completed", systemImage: "checkmark.square") {
                 NavigationStack {
-                    TaskListView(sortOrder: sortOrder, filterString: searchText, completed: true)
+                    TaskListView(sortOrder: sortOrder, filterString: searchText, predicate: predicate)
                         .navigationTitle("Tasks")
                         .searchable(text: $searchText)
                         .toolbar {
@@ -70,7 +75,10 @@ struct MyTasksView: View {
                                 .presentationDetents([.medium])
                         }
                 }
-                
+                .onAppear {
+                    predicate = #Predicate<MyTask> { $0.isDone == true && ($0.name.localizedStandardContains(searchText) || searchText.isEmpty)
+                    }
+                }
             }
         }
     }

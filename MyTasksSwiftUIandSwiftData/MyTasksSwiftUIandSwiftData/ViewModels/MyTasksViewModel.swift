@@ -9,16 +9,14 @@ import SwiftData
 
 @Observable
 class MyTasksViewModel {
-    var taskCompletedButtonPressed: Bool = false
     private var modelContext: ModelContext
     
     init(modelContext: ModelContext) {
         self.modelContext = modelContext
     }
     
-    public func toggleTaskCompletedButtonPressed() {
-        self.taskCompletedButtonPressed.toggle()
-        self.markTaskAsComplete()
+    public func toggleTaskCompletedButtonPressed(task: MyTask) {
+        self.markTaskAsComplete(task: task)
     }
     
     public func insertTask(task: MyTask) {
@@ -31,11 +29,11 @@ class MyTasksViewModel {
         saveTask(modelContext: modelContext)
     }
     
-    private func markTaskAsComplete() {
-        if self.taskCompletedButtonPressed {
-            print("Task is now complete")
+    private func markTaskAsComplete(task: MyTask) {
+        if !task.isDone {
+            task.isDone = true
         } else {
-            print("Task is incomplete")
+            task.isDone = false
         }
         saveTask(modelContext: modelContext)
     }

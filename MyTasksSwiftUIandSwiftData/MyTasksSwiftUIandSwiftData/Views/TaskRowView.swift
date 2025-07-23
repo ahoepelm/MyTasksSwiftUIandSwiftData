@@ -18,8 +18,8 @@ struct TaskRowView: View {
         VStack(alignment: .leading) {
             if let myTasksViewModel = myTasksViewModel {
                 HStack {
-                    Button("", systemImage: myTasksViewModel.taskCompletedButtonPressed ? "checkmark.square" : "square") {
-                        myTasksViewModel.toggleTaskCompletedButtonPressed()
+                    Button("", systemImage: myTask.isDone ? "checkmark.square" : "square") {
+                        myTasksViewModel.toggleTaskCompletedButtonPressed(task: myTask)
                     }
                     .buttonStyle(PlainButtonStyle())
                     

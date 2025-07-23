@@ -14,17 +14,12 @@ struct TaskListView: View {
     // Fetches the data from storage
     @Query private var myTasks: [MyTask]
     
-    init(sortOrder: Bool, filterString: String, completed: Bool = false) {
+    init(sortOrder: Bool, filterString: String, predicate: Predicate<MyTask>) {
         let sortDescriptors: [SortDescriptor<MyTask>] = switch sortOrder {
         case true:
             [SortDescriptor(\MyTask.name)]
         case false:
             [SortDescriptor(\MyTask.name, order: .reverse)]
-        }
-
-        let predicate = #Predicate<MyTask> { task in
-            task.name.localizedStandardContains(filterString)
-            || filterString.isEmpty && task.isDone == completed
         }
         _myTasks = Query(filter: predicate, sort: sortDescriptors)
     }
@@ -38,6 +33,7 @@ struct TaskListView: View {
                     NavigationLink(value: task) {
                         TaskRowView(myTask: task)
                     }
+                    // By default list divider will align to text. This aligns to whole row.
                     .alignmentGuide(.listRowSeparatorLeading) { d in
                                 d[.leading]
                             }
@@ -56,6 +52,6 @@ struct TaskListView: View {
     }
 }
 
-#Preview {
-    TaskListView(sortOrder: true, filterString: "")
-}
+//#Preview {
+//    TaskListView(sortOrder: true, filterString: "")
+//}
