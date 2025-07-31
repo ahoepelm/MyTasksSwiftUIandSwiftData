@@ -51,6 +51,10 @@ struct MyTasksView: View {
                     predicate = #Predicate<MyTask> { $0.isDone == false && ($0.name.localizedStandardContains(searchText) || searchText.isEmpty)
                     }
                 }
+                .onChange(of: searchText) {oldValue, newValue in
+                    predicate = #Predicate<MyTask> { $0.isDone == false && ($0.name.localizedStandardContains(newValue) || newValue.isEmpty)
+                    }
+                }
             }
 
 
@@ -77,6 +81,10 @@ struct MyTasksView: View {
                 }
                 .onAppear {
                     predicate = #Predicate<MyTask> { $0.isDone == true && ($0.name.localizedStandardContains(searchText) || searchText.isEmpty)
+                    }
+                }
+                .onChange(of: searchText) {oldValue, newValue in
+                    predicate = #Predicate<MyTask> { $0.isDone == true && ($0.name.localizedStandardContains(newValue) || newValue.isEmpty)
                     }
                 }
             }
