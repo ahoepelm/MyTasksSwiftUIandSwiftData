@@ -15,7 +15,6 @@ struct AddTaskView: View {
     @State private var priorityString = ""
     @State private var date = Date()
     @State private var sheetShowing: Bool = false
-    private let dateViewModel = GetDateViewModel()
     
     var body: some View {
         NavigationStack {
@@ -23,7 +22,7 @@ struct AddTaskView: View {
                 Form {
                     TextField("Task Name", text: $name)
                     HStack {
-                        Text(dateViewModel.convertDate(date: date))
+                        Text(Date(), format: .dateTime.day().month(.wide).year())
                         
                         Button("", systemImage: "calendar") {
                             sheetShowing.toggle()

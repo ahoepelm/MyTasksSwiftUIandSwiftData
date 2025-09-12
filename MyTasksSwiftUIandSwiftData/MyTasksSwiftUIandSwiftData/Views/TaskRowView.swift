@@ -12,7 +12,6 @@ struct TaskRowView: View {
     @State var myTasksViewModel: MyTasksViewModel? = nil
 
     let myTask: MyTask
-    private let dateViewModel = GetDateViewModel()
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -28,7 +27,8 @@ struct TaskRowView: View {
                             .font(.title3)
                             .foregroundColor(myTask.priority == "low" ?  Color.green : myTask.priority == "medium" ? Color.orange : myTask.priority == "high" ? Color.red : Color.gray)
                         
-                        Text(dateViewModel.convertDate(date: myTask.dueDate))
+                        // formatted is supposed to remove the "at" before time stamp. It is still there. Leaving in case it's a bug.
+                        Text(myTask.dueDate.formatted(.dateTime.day().month(.abbreviated).hour().minute()))
                             .font(.subheadline)
                             .foregroundColor(.gray)
                     }

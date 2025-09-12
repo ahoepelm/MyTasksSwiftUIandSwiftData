@@ -8,14 +8,13 @@
 import SwiftUI
 
 struct CurrDateView: View {
-    private let dateViewModel = GetDateViewModel()
     
     var body: some View {
         VStack(alignment: .leading) {
-            Text(dateViewModel.getDay())
-            Text(dateViewModel.getMonth() + dateViewModel.getDate())
+            Text(Date(), format: .dateTime.weekday(.wide))
+            Text(Date(), format: .dateTime.day().month(.abbreviated))
                 .font(.largeTitle).minimumScaleFactor(0.5)
-            Text(dateViewModel.getYear())
+            Text(Date(), format: .dateTime.year())
                 .font(.title)
                 .foregroundColor(.gray)
         }

@@ -9,14 +9,13 @@ import SwiftUI
 
 struct TaskDetailView: View {
     // Temporary view. May combine views
-    private let dateViewModel = GetDateViewModel()
-    let task: MyTask
+    let myTask: MyTask
 
     var body: some View {
         VStack {
-            Text(task.name)
+            Text(myTask.name)
                 .font(.title)
-            Text("Due: " + dateViewModel.convertDate(date: task.dueDate))
+            Text(myTask.dueDate.formatted(.dateTime.day().month(.abbreviated).hour().minute()))
                 .font(.title2)
         }
     }
