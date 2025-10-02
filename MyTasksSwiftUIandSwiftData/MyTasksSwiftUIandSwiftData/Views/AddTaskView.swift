@@ -15,7 +15,7 @@ struct AddTaskView: View {
     var body: some View {
         Form {
             TextField("Task Name", text: $myTask.name)
-            DatePicker("Date", selection: $myTask.dueDate)
+            DatePicker("Date", selection: $myTask.dueDate, in: Date()...)
             
             Section {
                 Picker("Priority", selection: $myTask.priority) {
