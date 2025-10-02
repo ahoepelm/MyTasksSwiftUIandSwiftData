@@ -9,10 +9,11 @@ import SwiftUI
 import SwiftData
 
 struct MyTasksView: View {
+    @Environment(\.modelContext) var modelContext
     @State private var sortOrder: Bool = true
     @State private var searchText: String = ""
-    @State private var addingTask: Bool = false
     @State private var predicate: Predicate<MyTask> = .false
+    @State private var path = [MyTask]()
     
     var body: some View {
         HStack {
@@ -27,24 +28,16 @@ struct MyTasksView: View {
         TabView {
             // Demonstrating new iOS 18 tab option instead of .tabItem modifier
             Tab("Pending", systemImage: "square") {
-                NavigationStack {
+                NavigationStack(path: $path) {
                     TaskListView(sortOrder: sortOrder, filterString: searchText, predicate: predicate)
                         .navigationTitle("Tasks")
+                        .navigationDestination(for: MyTask.self, destination: AddTaskView.init)
                         .searchable(text: $searchText)
                         .toolbar {
                             Button("sort", systemImage: "arrow.up.arrow.down") {
                                 sortOrder.toggle()
                             }
-                            Button {
-                                addingTask = true
-                            } label: {
-                                Image(systemName: "plus")
-                                    .imageScale(.large)
-                            }
-                        }
-                        .sheet(isPresented: $addingTask) {
-                            AddTaskView()
-                                .presentationDetents([.medium])
+                            Button("", systemImage: "plus", action: addTask)
                         }
                 }
                 .onAppear {
@@ -56,27 +49,18 @@ struct MyTasksView: View {
                     }
                 }
             }
-
-
+                        
             Tab("Completed", systemImage: "checkmark.square") {
-                NavigationStack {
+                NavigationStack(path: $path) {
                     TaskListView(sortOrder: sortOrder, filterString: searchText, predicate: predicate)
                         .navigationTitle("Tasks")
+                        .navigationDestination(for: MyTask.self, destination: AddTaskView.init)
                         .searchable(text: $searchText)
                         .toolbar {
                             Button("sort", systemImage: "arrow.up.arrow.down") {
                                 sortOrder.toggle()
                             }
-                            Button {
-                                addingTask = true
-                            } label: {
-                                Image(systemName: "plus")
-                                    .imageScale(.large)
-                            }
-                        }
-                        .sheet(isPresented: $addingTask) {
-                            AddTaskView()
-                                .presentationDetents([.medium])
+                            Button("", systemImage: "plus", action: addTask)
                         }
                 }
                 .onAppear {
@@ -89,6 +73,11 @@ struct MyTasksView: View {
                 }
             }
         }
+    }
+    
+    func addTask() {
+        let task = MyTask()
+        path = [task]
     }
 }
 

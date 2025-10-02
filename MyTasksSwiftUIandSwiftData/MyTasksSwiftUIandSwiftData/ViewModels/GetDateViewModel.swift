@@ -7,6 +7,7 @@
 
 import Foundation
 
+// No longer using it but keeping it around in case we need better custom formatting
 struct GetDateViewModel {
     private let today = Date()
     private let dateFormatter = DateFormatter()

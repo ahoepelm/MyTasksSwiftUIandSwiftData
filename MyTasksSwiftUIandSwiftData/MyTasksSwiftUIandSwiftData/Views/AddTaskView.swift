@@ -10,70 +10,40 @@ import SwiftUI
 struct AddTaskView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.modelContext) private var context
-    @State private var name = ""
-    @State private var taskPriority: Priority = .none
-    @State private var priorityString = ""
-    @State private var date = Date()
-    @State private var sheetShowing: Bool = false
+    @Bindable var myTask: MyTask
     
     var body: some View {
-        NavigationStack {
-            VStack {
-                Form {
-                    TextField("Task Name", text: $name)
-                    HStack {
-                        Text(Date(), format: .dateTime.day().month(.wide).year())
-                        
-                        Button("", systemImage: "calendar") {
-                            sheetShowing.toggle()
-                        }
-                        .font(.title3)
-                    }
-                    if sheetShowing {
-                        DatePicker("", selection: $date, in: Date()..., displayedComponents: [.date, .hourAndMinute])
-                            .datePickerStyle(.compact)
-                    }
-                    HStack {
-                        Button("Low") {
-                            taskPriority = .low
-                            priorityString = "low"
-                        }
-                        .background(taskPriority == .low ? .green : .gray, in: Capsule())
-                        Button("Medium") {
-                            taskPriority = .medium
-                            priorityString = "medium"
-                        }
-                        .background(taskPriority == .medium ? .orange : .gray, in: Capsule())
-                        Button("High") {
-                            taskPriority = .high
-                            priorityString = "high"
-                        }
-                        .background(taskPriority == .high ? .red : .gray, in: Capsule())
-                    }
-                    .buttonStyle(OvalButton())
-                    .frame(maxWidth: .infinity, alignment: .center)
-                }                
-                .navigationTitle("Task")
-                .toolbar {
-                    ToolbarItem(placement: .topBarTrailing) {
-                        Button("Cancel") {
-                            dismiss()
-                        }
-                    }
+        Form {
+            TextField("Task Name", text: $myTask.name)
+            DatePicker("Date", selection: $myTask.dueDate)
+            
+            Section {
+                Picker("Priority", selection: $myTask.priority) {
+                    Text("Low").tag("low")
+                    Text("Medium").tag("medium")
+                    Text("High").tag("high")
+                }
+                .pickerStyle(.segmented)
+            }
+        }
+        .navigationTitle("Task")
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                Button("Cancel") {
+                    dismiss()
                 }
             }
         }
         
         Button("Save") {
             let myTasksViewModel = MyTasksViewModel(modelContext: context)
-            let task = MyTask(name: name, priority: priorityString, dueDate: date, isDone: false)
-
-            myTasksViewModel.insertTask(task: task)
+            
+            myTasksViewModel.insertTask(task: myTask)
             dismiss()
-        }.disabled(name.trimmingCharacters(in: .whitespaces).isEmpty)
+        }.disabled(myTask.name.trimmingCharacters(in: .whitespaces).isEmpty)
     }
 }
 
-#Preview {
-    AddTaskView()
-}
+//#Preview {
+//    AddTaskView()
+//}

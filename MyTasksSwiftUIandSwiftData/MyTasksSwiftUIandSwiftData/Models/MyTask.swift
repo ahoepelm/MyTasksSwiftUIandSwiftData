@@ -11,12 +11,13 @@ import SwiftData
 @Model
 final class MyTask: Identifiable {
     @Attribute(.unique) var id: String = UUID().uuidString
-    var name: String = ""
-    var priority: Priority.RawValue = Priority.low.rawValue
-    var dueDate: Date = Date()
-    var isDone: Bool = false
     
-    init(name: String, priority: Priority.RawValue, dueDate: Date, isDone: Bool) {
+    var name: String
+    var priority: Priority.RawValue
+    var dueDate: Date
+    var isDone: Bool
+    
+    init(name: String = "", priority: Priority.RawValue = Priority.low.rawValue, dueDate: Date = .now, isDone: Bool = false) {
         self.name = name
         self.priority = priority
         self.dueDate = dueDate

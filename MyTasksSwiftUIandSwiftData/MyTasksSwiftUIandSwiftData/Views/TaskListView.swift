@@ -23,7 +23,7 @@ struct TaskListView: View {
         }
         _myTasks = Query(filter: predicate, sort: sortDescriptors)
     }
-
+    
     var body: some View {
         if myTasks.isEmpty {
             ContentUnavailableView.search
@@ -35,11 +35,10 @@ struct TaskListView: View {
                     }
                     // By default list divider will align to text. This aligns to whole row.
                     .alignmentGuide(.listRowSeparatorLeading) { d in
-                                d[.leading]
-                            }
+                        d[.leading]
+                    }
                 }.onDelete(perform: deleteTask)
             }
-            .navigationDestination(for: MyTask.self, destination: TaskDetailView.init)
         }
     }
     
